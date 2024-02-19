@@ -304,6 +304,7 @@ DEPENDENCIES
   redis (~> 4.0)
   rspec-rails
   rubocop
+  rubocop-capybara
   rubocop-rails
   rubocop-rspec
   selenium-webdriver
