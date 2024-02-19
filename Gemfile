@@ -57,9 +57,9 @@ group :development do
   gem 'faker'
   gem 'rspec-rails'
   gem 'rubocop'
-  gem 'rubocop-capybara', require: false
-  gem 'rubocop-rails', require: false
-  gem 'rubocop-rspec', require: false
+  gem 'rubocop-capybara'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
   gem 'web-console'
 end
 
