@@ -44,10 +44,6 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
-# Additional gems for security auditing
-gem 'brakeman'
-gem 'bundler-audit'
-
 gem 'httparty'
 
 group :development, :test do
@@ -55,6 +51,8 @@ group :development, :test do
 end
 
 group :development do
+  gem 'brakeman'
+  gem 'bundler-audit'
   gem 'dotenv-rails'
   gem 'faker'
   gem 'rspec-rails'
