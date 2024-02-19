@@ -1,0 +1,19 @@
+AllCops:
+  SuggestExtensions: false
+  TargetRubyVersion: 3.0
+  Exclude:
+    - 'bin/bundle'
+    - 'vendor/**/*'
+    - 'db/schema.rb'
+    - 'db/seeds.rb'
+
+require:
+  - rubocop-capybara
+  - rubocop-rails
+  - rubocop-rspec
+
+Metrics/LineLength:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false

@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: postgres
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host: <%= ENV["DATABASE_HOST"] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  port: 5432
+
+development:
+  <<: *default
+  database: api_rest_bitcoin_development
+
+test:
+  <<: *default
+  database: api_rest_bitcoin_test
+
+production:
+  <<: *default
+  database: api_rest_bitcoin_production
