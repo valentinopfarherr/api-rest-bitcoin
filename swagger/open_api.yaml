@@ -1,0 +1,185 @@
+openapi: 3.0.0
+info:
+  title: Bitcoin API Rest
+  description: Documentation of Bitcoin API endpoints
+  version: 1.0.0
+paths:
+  /login:
+    post:
+      tags:
+        - sessions
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: user@example.com
+                password:
+                  type: string
+                  example: password
+      responses:
+        '200':
+          description: Successful login
+  /users:
+    post:
+      tags:
+        - users
+      summary: Sign up new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: user@example.com
+                password:
+                  type: string
+                  example: password
+      responses:
+        '200':
+          description: User created successfully
+  /users/{user-id}/wallets:
+    parameters:
+      - name: user-id
+        in: path
+        required: true
+        description: ID of the user
+        schema:
+          type: string
+    get:
+      tags:
+        - wallets
+      summary: Get all user wallets
+      responses:
+        '200':
+          description: List of user wallets
+  /users/{user-id}/wallets/{wallet-id}:
+    parameters:
+      - name: user-id
+        in: path
+        required: true
+        description: ID of the user
+        schema:
+          type: string
+      - name: wallet-id
+        in: path
+        required: true
+        description: ID of the wallet
+        schema:
+          type: string
+    get:
+      tags:
+        - wallets
+      summary: Get details of a specific wallet
+      responses:
+        '200':
+          description: Details of the requested wallet
+  /users/{user-id}/wallets/{wallet-id}/credit:
+    parameters:
+      - name: user-id
+        in: path
+        required: true
+        description: ID of the user
+        schema:
+          type: string
+      - name: wallet-id
+        in: path
+        required: true
+        description: ID of the wallet
+        schema:
+          type: string
+    post:
+      tags:
+        - wallets
+      summary: Credit funds to a wallet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  example: 100
+                currency:
+                  type: string
+                  example: USD
+      responses:
+        '200':
+          description: Funds credited successfully
+  /users/{user-id}/transactions:
+    parameters:
+      - name: user-id
+        in: path
+        required: true
+        description: ID of the user
+        schema:
+          type: string
+    get:
+      tags:
+        - transactions
+      summary: Get all user transactions
+      responses:
+        '200':
+          description: List of user transactions
+    post:
+      tags:
+        - transactions
+      summary: Create a new transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                currency_sent:
+                  type: string
+                  example: USD
+                currency_received:
+                  type: string
+                  example: BTC
+                amount_sent:
+                  type: number
+                  example: 100
+      responses:
+        '200':
+          description: Transaction created successfully
+  /users/{user-id}/transactions/{transaction-id}:
+    parameters:
+      - name: user-id
+        in: path
+        required: true
+        description: ID of the user
+        schema:
+          type: string
+      - name: transaction-id
+        in: path
+        required: true
+        description: ID of the transaction
+        schema:
+          type: string
+    get:
+      tags:
+        - transactions
+      summary: Get details of a specific transaction
+      responses:
+        '200':
+          description: Details of the requested transaction
+  /bitcoin_price:
+    get:
+      tags:
+        - bitcoin price
+      summary: Get current Bitcoin price
+      responses:
+        '200':
+          description: Current Bitcoin price

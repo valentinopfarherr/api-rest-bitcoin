@@ -1,6 +1,7 @@
 AllCops:
   SuggestExtensions: false
   TargetRubyVersion: 3.0
+  FrozenStringLiteral: true
   Exclude:
     - 'bin/bundle'
     - 'vendor/**/*'
@@ -17,3 +18,9 @@ Metrics/LineLength:
 
 Style/Documentation:
   Enabled: false
+
+Metrics/MethodLength:
+  Max: 15
+
+RSpec/MultipleExpectations:
+  Max: 3
