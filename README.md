@@ -1,12 +1,16 @@
 # README
 
-This repository contains the solution to the evaluation challenge for the Development and Technology team at VitaWallet. Below are the instructions for setting up the server and testing the implemented functionalities.
+This repository contains the solution to the evaluation challenge for the Development and Technology team at VitaWallet. Below are the instructions for setting up the local server and testing the implemented functionalities.
 
 ## Usage Instructions
 
-### Setting Up the Server
+### Production Deployment
 
-To set up the server, follow these steps:
+You can access the application directly from the production environment hosted on Railway. The URL is: api-rest-bitcoin-production.up.railway.app. If you choose this option, jump to Postman Collection & Application Usage sections.
+
+### Setting Up the Server (Local)
+
+Alternatively to using the production deployment, you can also set up the local server following these steps:
 
 1. Clone this repository to your local machine.
 2. Install project dependencies using `bundle install`
@@ -38,8 +42,9 @@ Before running the application, please make sure to set up the following environ
 
 Configure the database connection by setting the following environment variables:
 
-- `DATABASE_HOST`: The database host address (usually `localhost`).
-- `DATABASE_PASSWORD`: The database password.
+- `LOCAL_DATABASE_HOST`: The database host address (usually `localhost`).
+- `LOCAL_DATABASE_PASSWORD`: The username.
+- `LOCAL_DATABASE_PASSWORD`: The database password.
 
 ### Coindesk Configuration
 
@@ -54,6 +59,7 @@ The project includes RuboCop for code linting and RSpec for testing. You can run
 ```bash
 rspec
 ```
+In addition to using the local server, you can also access the application directly from the production environment hosted on Railway. The URL is: `api-rest-bitcoin-production.up.railway.app`.
 
 ## Postman Collection
 
