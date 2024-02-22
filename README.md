@@ -6,7 +6,9 @@ This repository contains the solution to the evaluation challenge for the Develo
 
 ### Production Deployment
 
-You can access the application directly from the production environment hosted on Railway. The URL is: api-rest-bitcoin-production.up.railway.app. If you choose this option, jump to Postman Collection & Application Usage sections.
+You can access the application directly from the production environment hosted on Railway. The URL is: https://api-rest-bitcoin-production.up.railway.app. If you choose this option, jump to Postman Collection & Application Usage sections.
+
+Railway app link: https://railway.app/project/7f88c052-f091-4167-9209-c4f6c336e133/service/3909a6ee-6f96-4c3b-835e-24fec84d190c
 
 ### Setting Up the Server (Local)
 
