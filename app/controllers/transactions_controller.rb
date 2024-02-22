@@ -59,10 +59,6 @@ class TransactionsController < ApplicationController
     render json: { transaction: format_transaction(@transaction) }, status: :created
   end
 
-  def render_transaction_error_response
-    render json: { error: @transaction.errors.full_messages }, status: :unprocessable_entity
-  end
-
   def render_not_found(message)
     render json: { error: message }, status: :not_found
   end

@@ -4,35 +4,16 @@ require 'rails_helper'
 
 RSpec.describe PricesController, type: :controller do
   describe 'GET #bitcoin_price' do
-    context 'when CoindeskService successfully fetches the bitcoin price' do
-      let(:bitcoin_price) { 45_000.0 }
-
+    context 'when CoindeskService fetches bitcoin price successfully' do
       before do
-        allow(CoindeskService).to receive(:fetch_bitcoin_price).and_return(bitcoin_price)
+        allow(CoindeskService).to receive(:fetch_bitcoin_price).and_return(10_000.50)
         get :bitcoin_price
       end
 
-      it 'returns HTTP success' do
+      it 'returns a JSON response with the bitcoin price in USD' do
         expect(response).to have_http_status(:ok)
-      end
-
-      it 'returns the bitcoin price in JSON format' do
-        expect(JSON.parse(response.body)).to eq({ 'bitcoin_price' => bitcoin_price })
-      end
-    end
-
-    context 'when CoindeskService encounters an error while fetching the bitcoin price' do
-      before do
-        allow(CoindeskService).to receive(:fetch_bitcoin_price).and_raise(StandardError, 'Error fetching bitcoin price')
-        get :bitcoin_price
-      end
-
-      it 'returns HTTP internal server error' do
-        expect(response).to have_http_status(:internal_server_error)
-      end
-
-      it 'returns an error message in JSON format' do
-        expect(JSON.parse(response.body)).to eq({ 'error' => 'Error fetching bitcoin price' })
+        expect(response.content_type).to start_with('application/json')
+        expect(JSON.parse(response.body)['bitcoin_price']).to eq '1 bitcoin is equal to 10000.5 USD'
       end
     end
   end

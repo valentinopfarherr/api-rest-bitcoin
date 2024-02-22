@@ -47,19 +47,21 @@ gem 'bootsnap', require: false
 gem 'httparty'
 
 group :development, :test do
-  gem 'debug', platforms: %i[mri mingw x64_mingw]
-end
-
-group :development do
   gem 'brakeman'
   gem 'bundler-audit'
+  gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails'
+  gem 'factory_bot_rails'
   gem 'faker'
   gem 'rspec-rails'
   gem 'rubocop'
   gem 'rubocop-capybara'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+  gem 'shoulda-matchers'
+end
+
+group :development do
   gem 'web-console'
 end
 

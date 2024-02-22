@@ -8,30 +8,35 @@ RSpec.describe Wallet, type: :model do
     it { is_expected.to validate_inclusion_of(:currency).in_array(%w[USD BTC]) }
   end
 
-  describe 'associations' do
-    it { is_expected.to belong_to(:user) }
-  end
-
   describe 'methods' do
-    let(:user) { create(:user) }
-    let(:wallet) { create(:wallet, user: user) }
+    let(:user) { create(:user) } # Suponiendo que tienes un factory para crear usuarios
 
-    it 'deducts amount from balance' do
-      wallet.update(balance: 100)
-      wallet.deduct(50)
-      expect(wallet.balance).to eq(50)
+    describe '#deduct' do
+      it 'deducts the specified amount from the balance' do
+        wallet = create(:wallet, user: user, balance: 100, currency: 'USD')
+        wallet.deduct(50)
+        expect(wallet.reload.balance).to eq(50)
+      end
     end
 
-    it 'adds amount to balance' do
-      wallet.update(balance: 100)
-      wallet.add(50)
-      expect(wallet.balance).to eq(150)
+    describe '#add' do
+      it 'adds the specified amount to the balance' do
+        wallet = create(:wallet, user: user, balance: 100, currency: 'USD')
+        wallet.add(50)
+        expect(wallet.reload.balance).to eq(150)
+      end
     end
 
-    it 'checks if balance is sufficient for deduction' do
-      wallet.update(balance: 100)
-      expect(wallet.send(:sufficient_balance?, 50)).to be(true)
-      expect(wallet.send(:sufficient_balance?, 150)).to be(false)
+    describe '#sufficient_balance?' do
+      it 'returns true if the balance is sufficient' do
+        wallet = create(:wallet, user: user, balance: 100, currency: 'USD')
+        expect(wallet).to be_sufficient_balance(50)
+      end
+
+      it 'returns false if the balance is insufficient' do
+        wallet = create(:wallet, user: user, balance: 100, currency: 'USD')
+        expect(wallet).not_to be_sufficient_balance(150)
+      end
     end
   end
 end

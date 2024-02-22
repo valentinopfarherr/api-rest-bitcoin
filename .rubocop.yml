@@ -27,3 +27,15 @@ RSpec/MultipleExpectations:
 
 Metrics/AbcSize:
   Enabled: false
+
+RSpec/NestedGroups:
+  Exclude:
+    - 'spec/**/*.rb'
+
+RSpec/MessageSpies:
+  Exclude:
+    - 'spec/services/coindesk_service_spec.rb'
+
+RSpec/VerifiedDoubles:
+  Exclude:
+    - 'spec/services/coindesk_service_spec.rb'
