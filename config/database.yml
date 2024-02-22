@@ -17,4 +17,6 @@ test:
 
 production:
   <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
   database: api_rest_bitcoin_production
+  password: <%= ENV["RAILWAYAPP_DATABASE_PASSWORD"] %>
