@@ -6,15 +6,15 @@ default: &default
 development:
   <<: *default
   database: api_rest_bitcoin_development
-  username: postgres
-  password: <%= ENV["DATABASE_PASSWORD"] %>
+  # username: postgres
+  # password: <%= ENV["DATABASE_PASSWORD"] %>
   host: <%= ENV["DATABASE_HOST"] %>
 
 test:
   <<: *default
   database: api_rest_bitcoin_test
-  username: postgres
-  password: <%= ENV["DATABASE_PASSWORD"] %>
+  # username: postgres
+  # password: <%= ENV["DATABASE_PASSWORD"] %>
   host: <%= ENV["DATABASE_HOST"] %>
 
 production:
