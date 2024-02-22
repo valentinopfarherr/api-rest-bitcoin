@@ -14,6 +14,4 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   get '/bitcoin_price', to: 'prices#bitcoin_price'
-
-  match '*path', to: 'errors#not_found', via: :all
 end
