@@ -1,5 +1,6 @@
 AllCops:
   SuggestExtensions: false
+  Capybara: false
   TargetRubyVersion: 3.0
   FrozenStringLiteral: true
   Exclude:
@@ -39,3 +40,4 @@ RSpec/MessageSpies:
 RSpec/VerifiedDoubles:
   Exclude:
     - 'spec/services/coindesk_service_spec.rb'
+    
