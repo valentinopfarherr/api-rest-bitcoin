@@ -12,7 +12,7 @@ class WalletsController < ApplicationController
 
   def credit
     amount = wallet_params[:amount].to_f
-    currency = wallet_params[:currency]
+    currency = wallet_params[:currency].upcase
 
     unless valid_amount?(amount)
       render json: { error: 'amount must be a positive number' }, status: :unprocessable_entity
@@ -30,7 +30,7 @@ class WalletsController < ApplicationController
   private
 
   def set_wallet
-    @wallet = current_user.wallets.find_by(currency: params[:currency])
+    @wallet = current_user.wallets.find_by(currency: wallet_params[:currency].upcase)
   end
 
   def wallets_info
@@ -55,7 +55,7 @@ class WalletsController < ApplicationController
 
   def update_wallet_balance(amount, currency)
     @wallet.currency = currency
-    @wallet.balance += format_amount(amount, currency)
+    @wallet.balance += amount
 
     if @wallet.save
       render json: { message: "successfully credited #{format_amount(amount, currency)} #{currency} to the wallet", wallet: wallet_info(@wallet) }

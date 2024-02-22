@@ -1,7 +1,25 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+admin_user = User.find_or_create_by(email: 'usertest@gmail.com') do |user|
+  user.password = 'password'
+  user.password_confirmation = 'password'
+end
+
+admin_user.wallets.find_or_create_by(currency: 'USD') do |wallet|
+  wallet.balance = 1000
+end
+
+admin_user.wallets.find_or_create_by(currency: 'BTC') do |wallet|
+  wallet.balance = 0.0001
+end
+
+5.times do
+  currency_options = ['USD', 'BTC']
+  currency_sent = currency_options.sample
+  currency_received = (currency_options - [currency_sent]).sample
+
+  admin_user.transactions.create!(
+    currency_sent: currency_sent,
+    currency_received: currency_received,
+    amount_sent: rand(1..100),
+    amount_received: rand(1..100)
+  )
+end

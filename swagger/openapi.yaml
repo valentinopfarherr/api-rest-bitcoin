@@ -8,7 +8,7 @@ paths:
     post:
       tags:
         - sessions
-      summary: Login user
+      summary: Log in
       requestBody:
         required: true
         content:
@@ -24,12 +24,37 @@ paths:
                   example: password
       responses:
         '200':
-          description: Successful login
+          description: login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'login successful'
+
+  /logout:
+    delete:
+      tags:
+        - sessions
+      summary: Log out
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'logged out successfully'
   /users:
     post:
       tags:
         - users
-      summary: Sign up new user
+      summary: Register user
       requestBody:
         required: true
         content:
@@ -43,17 +68,21 @@ paths:
                 password:
                   type: string
                   example: password
+                password_confirmation:
+                  type: string
+                  example: password
       responses:
         '200':
-          description: User created successfully
-  /users/{user-id}/wallets:
-    parameters:
-      - name: user-id
-        in: path
-        required: true
-        description: ID of the user
-        schema:
-          type: string
+          description: user created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'user created successfuly'
+  /users/:user-id/wallets:
     get:
       tags:
         - wallets
@@ -61,45 +90,11 @@ paths:
       responses:
         '200':
           description: List of user wallets
-  /users/{user-id}/wallets/{wallet-id}:
-    parameters:
-      - name: user-id
-        in: path
-        required: true
-        description: ID of the user
-        schema:
-          type: string
-      - name: wallet-id
-        in: path
-        required: true
-        description: ID of the wallet
-        schema:
-          type: string
-    get:
-      tags:
-        - wallets
-      summary: Get details of a specific wallet
-      responses:
-        '200':
-          description: Details of the requested wallet
-  /users/{user-id}/wallets/{wallet-id}/credit:
-    parameters:
-      - name: user-id
-        in: path
-        required: true
-        description: ID of the user
-        schema:
-          type: string
-      - name: wallet-id
-        in: path
-        required: true
-        description: ID of the wallet
-        schema:
-          type: string
+  /users/:user-id/wallets/usd/credit:
     post:
       tags:
         - wallets
-      summary: Credit funds to a wallet
+      summary: Credit wallet in USD
       requestBody:
         required: true
         content:
@@ -116,14 +111,28 @@ paths:
       responses:
         '200':
           description: Funds credited successfully
-  /users/{user-id}/transactions:
-    parameters:
-      - name: user-id
-        in: path
+  /users/:user-id/wallets/btc/credit:
+    post:
+      tags:
+        - wallets
+      summary: Credit wallet in BTC
+      requestBody:
         required: true
-        description: ID of the user
-        schema:
-          type: string
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  example: 0.00001
+                currency:
+                  type: string
+                  example: BTC
+      responses:
+        '200':
+          description: Funds credited successfully
+  /users/:user-id/transactions:
     get:
       tags:
         - transactions
@@ -134,7 +143,7 @@ paths:
     post:
       tags:
         - transactions
-      summary: Create a new transaction
+      summary: Create transaction
       requestBody:
         required: true
         content:
@@ -154,24 +163,18 @@ paths:
       responses:
         '200':
           description: Transaction created successfully
-  /users/{user-id}/transactions/{transaction-id}:
-    parameters:
-      - name: user-id
-        in: path
-        required: true
-        description: ID of the user
-        schema:
-          type: string
-      - name: transaction-id
-        in: path
-        required: true
-        description: ID of the transaction
-        schema:
-          type: string
+  /users/:user-id/transactions/{transaction-id}:
     get:
       tags:
         - transactions
-      summary: Get details of a specific transaction
+      summary: Get specific transaction
+      parameters:
+        - name: transaction-id
+          in: path
+          required: true
+          description: ID of the user
+          schema:
+            type: string
       responses:
         '200':
           description: Details of the requested transaction
@@ -182,4 +185,12 @@ paths:
       summary: Get current Bitcoin price
       responses:
         '200':
-          description: Current Bitcoin price
+          description: successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bitcoin_price:
+                    type: string
+                    example: '1 bitcoin is equal to 51457.744 USD'

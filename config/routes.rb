@@ -2,12 +2,12 @@
 
 Rails.application.routes.draw do
   resources :users, only: [:create] do
-    resources :wallets, only: [:index] do
-      post 'credit', on: :member
+    resources :wallets, param: :currency, only: [:index] do
+      member do
+        post 'credit', to: 'wallets#credit'
+      end
     end
     resources :transactions, only: %i[index show create]
-
-    match '*path', to: 'errors#not_found', via: :all
   end
 
   post '/login', to: 'sessions#create'

@@ -1,0 +1,304 @@
+{
+	"info": {
+		"_postman_id": "ac4b94aa-607e-4626-855c-6f4fbcd6141d",
+		"name": "Bitcoin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27478968",
+		"_collection_link": "https://www.postman.com/valentinopfarherr/workspace/api-rest-bitcoin/collection/27478968-ac4b94aa-607e-4626-855c-6f4fbcd6141d?action=share&source=collection_link&creator=27478968"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Sessions",
+					"item": [
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"user2@example.com\",\n    \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/logout",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sign up",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"user6@example.com\",\n    \"password\": \"password\",\n    \"password_confirmation\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Transactions",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"currency_sent\": \"usd\",\n    \"currency_received\": \"btc\",\n    \"amount_sent\": 10\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/users/:user-id/transactions",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users",
+										":user-id",
+										"transactions"
+									],
+									"variable": [
+										{
+											"key": "user-id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/users/:user-id/transactions/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users",
+										":user-id",
+										"transactions",
+										"1"
+									],
+									"variable": [
+										{
+											"key": "user-id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Index",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/users/:user-id/transactions",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users",
+										":user-id",
+										"transactions"
+									],
+									"variable": [
+										{
+											"key": "user-id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Wallets",
+					"item": [
+						{
+							"name": "Credit USD",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"amount\": 100\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/users/:user-id/wallets/usd/credit",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users",
+										":user-id",
+										"wallets",
+										"usd",
+										"credit"
+									],
+									"variable": [
+										{
+											"key": "user-id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Credit BTC",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"amount\": 100\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/users/:user-id/wallets/btc/credit",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users",
+										":user-id",
+										"wallets",
+										"btc",
+										"credit"
+									],
+									"variable": [
+										{
+											"key": "user-id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Index",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/users/:user-id/wallets",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users",
+										":user-id",
+										"wallets"
+									],
+									"variable": [
+										{
+											"key": "user-id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Info",
+			"item": [
+				{
+					"name": "Bitcoin Price",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/bitcoin_price",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"bitcoin_price"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

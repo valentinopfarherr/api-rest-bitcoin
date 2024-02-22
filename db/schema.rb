@@ -16,10 +16,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_19_183234) do
 
   create_table "transactions", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "transaction_type"
-    t.decimal "btc_amount", precision: 20, scale: 8
-    t.decimal "usd_amount", precision: 12, scale: 2
-    t.decimal "btc_usd_price", precision: 12, scale: 2
+    t.string "currency_sent"
+    t.string "currency_received"
+    t.decimal "amount_sent"
+    t.decimal "amount_received"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_transactions_on_user_id"
@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_19_183234) do
   end
 
   create_table "wallets", force: :cascade do |t|
-    t.decimal "balance", precision: 12, scale: 2, default: "0.0"
+    t.decimal "balance", precision: 20, scale: 8, default: "0.0"
     t.string "currency"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false

@@ -14,8 +14,6 @@ class Wallet < ApplicationRecord
     update(balance: balance + amount)
   end
 
-  private
-
   def sufficient_balance?(amount)
     balance >= amount
   end

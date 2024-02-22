@@ -1,23 +1,26 @@
 # frozen_string_literal: true
 
 class TransactionsController < ApplicationController
+  include TransactionHelper
+
   before_action :authenticate_user
   before_action :set_user
   before_action :set_transaction, only: [:show]
+  before_action :set_sender_wallet, :set_receiver_wallet, only: [:create]
 
   def index
-    current_user
     @transactions = @user.transactions
     render json: { transactions: format_transactions(@transactions) }, status: :ok
   end
 
   def create
-    @transaction = @user.transactions.build(transaction_params)
+    service = TransactionCreationService.new(@user, transaction_params)
 
-    if sufficient_balance_and_save_transaction?
+    begin
+      @transaction = service.create_transaction
       render_transaction_created_response
-    else
-      render_transaction_error_response
+    rescue StandardError => e
+      render_error_response(e.message)
     end
   end
 
@@ -32,47 +35,24 @@ class TransactionsController < ApplicationController
   end
 
   def set_transaction
-    @transaction = @user.transactions.find(params[:id])
+    @transaction = @user.transactions.find_by(id: params[:id])
+    render_not_found('transaction not found') unless @transaction
+  end
+
+  def set_sender_wallet
+    @sender_wallet = @user.wallets.find_by(currency: transaction_params[:currency_sent])
+  end
+
+  def set_receiver_wallet
+    @receiver_wallet = @user.wallets.find_by(currency: transaction_params[:currency_received])
+  end
+
+  def format_transactions(transactions)
+    transactions.reverse.map { |transaction| format_transaction(transaction) }
   end
 
   def transaction_params
     params.require(:transaction).permit(:currency_sent, :currency_received, :amount_sent)
-  end
-
-  def format_transactions(transactions)
-    transactions.map { |transaction| format_transaction(transaction) }
-  end
-
-  def calculate_amount_received(amount_sent)
-    bitcoin_price_usd = CoindeskService.fetch_bitcoin_price
-    amount_sent / bitcoin_price_usd
-  rescue StandardError => e
-    Rails.logger.error("error calculating amount received: #{e.message}")
-    raise StandardError, 'error calculating amount received.'
-  end
-
-  def update_user_balances(transaction)
-    sender_wallet, receiver_wallet = determine_wallets(transaction)
-    sender_wallet.deduct(transaction.amount_sent)
-    receiver_wallet.add(transaction.amount_received)
-  end
-
-  def determine_wallets(transaction)
-    sender_currency, receiver_currency = if transaction.currency_sent == 'USD'
-                                           %w[USD BTC]
-                                         else
-                                           %w[BTC USD]
-                                         end
-    sender_wallet = @user.wallets.find_by(currency: sender_currency)
-    receiver_wallet = @user.wallets.find_by(currency: receiver_currency)
-    [sender_wallet, receiver_wallet]
-  end
-
-  def sufficient_balance_and_save_transaction?
-    return false unless @user.sufficient_balance?(@transaction.amount_sent, 'USD')
-
-    @transaction.amount_received = calculate_amount_received(@transaction.amount_sent)
-    @transaction.save && update_user_balances(@transaction)
   end
 
   def render_transaction_created_response
@@ -80,6 +60,14 @@ class TransactionsController < ApplicationController
   end
 
   def render_transaction_error_response
-    render json: { error: @transaction.errors.full_messages || 'insufficient balance in USD' }, status: :unprocessable_entity
+    render json: { error: @transaction.errors.full_messages }, status: :unprocessable_entity
+  end
+
+  def render_not_found(message)
+    render json: { error: message }, status: :not_found
+  end
+
+  def render_error_response(message)
+    render json: { error: message }, status: :unprocessable_entity
   end
 end

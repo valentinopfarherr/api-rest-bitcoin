@@ -3,7 +3,6 @@
 class Transaction < ApplicationRecord
   belongs_to :user
 
-  validates :transaction_type, presence: true
-  validates :btc_amount, presence: true
-  validates :usd_amount, presence: true
+  validates :currency_sent, :currency_received, presence: true, inclusion: { in: %w[USD usd BTC btc] }
+  validates :amount_sent, presence: true, numericality: { greater_than_or_equal_to: 0 }
 end

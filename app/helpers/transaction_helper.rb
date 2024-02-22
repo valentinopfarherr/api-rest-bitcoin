@@ -13,10 +13,10 @@ module TransactionHelper
   end
 
   def format_amount(amount, currency)
-    if currency == 'USD'
-      format('%.2f', amount)
-    elsif currency == 'BTC'
-      format('%.8f', amount)
+    if currency.upcase == 'USD'
+      format('%.2f', amount).gsub(/\.?0+$/, '')
+    elsif currency.upcase == 'BTC'
+      format('%.8f', amount).gsub(/\.?0+$/, '')
     else
       amount.to_s
     end

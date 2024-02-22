@@ -24,3 +24,6 @@ Metrics/MethodLength:
 
 RSpec/MultipleExpectations:
   Max: 3
+
+Metrics/AbcSize:
+  Enabled: false
