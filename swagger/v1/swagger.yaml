@@ -105,9 +105,6 @@ paths:
                 amount:
                   type: number
                   example: 100
-                currency:
-                  type: string
-                  example: USD
       responses:
         '200':
           description: Funds credited successfully
@@ -126,9 +123,6 @@ paths:
                 amount:
                   type: number
                   example: 0.00001
-                currency:
-                  type: string
-                  example: BTC
       responses:
         '200':
           description: Funds credited successfully
