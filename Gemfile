@@ -46,6 +46,9 @@ gem 'bootsnap', require: false
 
 gem 'httparty'
 
+gem 'rswag-api'
+gem 'rswag-ui'
+
 group :development, :test do
   gem 'brakeman'
   gem 'bundler-audit'
@@ -54,6 +57,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rspec-rails'
+  gem 'rswag-specs'
   gem 'rubocop'
   gem 'rubocop-capybara'
   gem 'rubocop-rails'

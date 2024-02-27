@@ -71,11 +71,11 @@ In addition to using the local server, you can also access the application direc
 
 ## Swagger documentation
 
-[swagger](swagger/openapi.yaml)
+[swagger](https://api-rest-bitcoin-production.up.railway.app/api-docs/index.html)
 
-The Swagger documentation for this project is located in the `swagger` folder. You can refer to this file to understand the structure of the APIs and how to interact with them.
+Please note that the Swagger documentation provides insights into the structure of the APIs and guidance on how to interact with them.
 
-Please remember to keep these resources and documentation updated as the project progresses.
+Ensure to keep these resources and documentation updated as the project progresses.
 
 ### Application Usage
 
