@@ -166,7 +166,7 @@ paths:
         - name: transaction-id
           in: path
           required: true
-          description: ID of the user
+          description: ID of the transaction 
           schema:
             type: string
       responses:
